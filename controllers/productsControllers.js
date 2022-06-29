@@ -11,7 +11,7 @@ const getAll = async (req, res) => {
         .json({ message: 'Products not found' });
     }
 
-    return res.status(200).json(result);
+    return res.status(httpStatusCode.OK).json(result);
   } catch (err) {
     console.log(err);
     return res
