@@ -1,4 +1,4 @@
-const { default: rescue } = require('express-rescue');
+const rescue = require('express-rescue');
 const app = require('./app');
 require('dotenv').config();
 
