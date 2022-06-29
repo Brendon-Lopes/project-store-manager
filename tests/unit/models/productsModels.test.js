@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const connection = require('../../../helpers/connection');
 const productsModel = require('../../../models/productsModels');
 
-describe('Get all products from DB', () => {
+describe('Model Layer - Get all products from DB', () => {
   const mockedData = [{
     'id': 1,
     'name': "Martelo de Thor",
