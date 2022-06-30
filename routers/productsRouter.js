@@ -3,17 +3,17 @@ const express = require('express');
 const productsRouter = express.Router();
 
 const middleware = require('../middlewares');
-const controller = require('../controllers/productsControllers');
+const productsController = require('../controllers/productsControllers');
 
-productsRouter.get('/', controller.getAll);
+productsRouter.get('/', productsController.getAll);
 
 productsRouter.post(
   '/',
   middleware.productNameValidation,
   middleware.productNameLengthValidation,
-  controller.create,
+  productsController.create,
 );
 
-productsRouter.get('/:id', controller.getById);
+productsRouter.get('/:id', productsController.getById);
 
 module.exports = productsRouter;

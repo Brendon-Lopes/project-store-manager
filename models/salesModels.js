@@ -1,7 +1,7 @@
 const connection = require('../helpers/connection');
 
 const create = async () => {
-  const [result] = connection.execute(
+  const [result] = await connection.execute(
     'INSERT INTO StoreManager.sales (id) VALUES (NULL)',
   );
 

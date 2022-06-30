@@ -10,6 +10,7 @@ const errorMiddleware = require('./middlewares/errorMiddleware');
 app.use(bodyParser.json());
 
 app.use('/products', rescue(router.productsRouter));
+app.use('/sales', rescue(router.salesProductsRouter));
 
 app.use(errorMiddleware);
 

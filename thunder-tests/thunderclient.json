@@ -45,5 +45,24 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "e0d77065-edfe-42bb-90dc-8862f5de060b",
+    "colId": "c40648a0-8963-445e-a0e5-8f2517126fdf",
+    "containerId": "9021192b-9bab-4f7c-9b77-fdc8ed09c8a0",
+    "name": "Register New Sales",
+    "url": "http://localhost:3000/sales",
+    "method": "POST",
+    "sortNum": 50000,
+    "created": "2022-06-30T22:39:33.159Z",
+    "modified": "2022-06-30T22:52:15.949Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "[\r\n    {\r\n      \"productId\": 1,\r\n      \"quantity\":1\r\n    },\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\":5\r\n    }\r\n]",
+      "form": []
+    },
+    "tests": []
   }
 ]
