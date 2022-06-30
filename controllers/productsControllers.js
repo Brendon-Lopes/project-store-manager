@@ -13,7 +13,6 @@ const getAll = async (req, res) => {
 
     return res.status(httpStatusCode.OK).json(result);
   } catch (err) {
-    console.log(err);
     return res
       .status(httpStatusCode.INTERNAL_SERVER)
       .json({ message: 'Internal server error' });
@@ -34,7 +33,6 @@ const getById = async (req, res) => {
 
     return res.status(httpStatusCode.OK).json(result);
   } catch (err) {
-    console.log(err);
     return res
       .status(httpStatusCode.INTERNAL_SERVER)
       .json({ message: 'Internal server error' });
