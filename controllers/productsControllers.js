@@ -20,6 +20,28 @@ const getAll = async (req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await productsService.getById(id);
+
+    if (!result) {
+      return res
+        .status(httpStatusCode.NOT_FOUND)
+        .json({ message: 'Product not found' });
+    }
+
+    return res.status(httpStatusCode.OK).json(result);
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(httpStatusCode.INTERNAL_SERVER)
+      .json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   getAll,
+  getById,
 };

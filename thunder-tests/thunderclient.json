@@ -12,5 +12,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "2fb28cff-6ea3-4221-bfdc-7ec6ce398d44",
+    "colId": "c40648a0-8963-445e-a0e5-8f2517126fdf",
+    "containerId": "c389799c-7e7a-4e87-8d82-ea96c9ebd3b2",
+    "name": "Get Product By Id",
+    "url": "http://localhost:3000/products/1",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2022-06-29T22:06:27.786Z",
+    "modified": "2022-06-29T22:17:56.640Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

@@ -5,7 +5,7 @@ const productsController = require('../../../controllers/productsControllers');
 const productsService = require('../../../services/productsServices');
 
 describe('Controller Layer - getAll products route', () => {
-  describe('when it returns correctly', () => {
+  describe('when it returns correctly', async () => {
     const response = {};
     const request = {};
 
@@ -16,7 +16,7 @@ describe('Controller Layer - getAll products route', () => {
 
     before(() => {
       response.status = sinon.stub().returns(response);
-      request.json = sinon.stub().returns();
+      response.json = sinon.stub().returns();
 
       sinon.stub(productsService, 'getAll').resolves(mockedData);
     });
@@ -27,12 +27,12 @@ describe('Controller Layer - getAll products route', () => {
 
     it('it\'s called with the status code 200', async () => {
       await productsController.getAll(request, response);
-      expect(response.status.calledWith(200)).to.be.true;
+      expect(response.status.calledWith(200)).to.be.equal(true);
     });
 
     it('it\'s called with the correct data', async () => {
       await productsController.getAll(request, response);
-      expect(response.json.calledWith(mockedData)).to.be.true;
+      expect(response.json.calledWith(mockedData)).to.be.equal(true);
     });
   });
 
@@ -42,7 +42,7 @@ describe('Controller Layer - getAll products route', () => {
 
     before(() => {
       response.status = sinon.stub().returns(response);
-      request.json = sinon.stub().returns();
+      response.json = sinon.stub().returns();
 
       sinon.stub(productsService, 'getAll').resolves(false);
     });
