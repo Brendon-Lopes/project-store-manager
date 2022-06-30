@@ -39,7 +39,22 @@ const getById = async (req, res) => {
   }
 };
 
+const create = async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    const product = await productsService.create(name);
+
+    return res.status(httpStatusCode.CREATED).json(product);
+  } catch (err) {
+    return res
+      .status(httpStatusCode.INTERNAL_SERVER)
+      .json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   getAll,
   getById,
+  create,
 };
