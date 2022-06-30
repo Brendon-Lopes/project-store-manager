@@ -174,3 +174,60 @@ describe('Controller Layer - getById function', () => {
     });
   });
 });
+
+describe('Controller Layer - create product', () => {
+  describe('when the item is created succesfully', () => {
+    const response = {};
+    const request = {};
+
+    const PRODUCT_MOCK = {
+      'id': 1,
+      'name': 'Biscoitim',
+    };
+
+    before(() => {
+      request.body = { name: 'Biscoitim' };
+
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(productsService, 'create').resolves(PRODUCT_MOCK);
+    });
+
+    after(() => {
+      productsService.create.restore();
+    });
+
+    it('is called with the code 201', async () => {
+      await productsController.create(request, response);
+      expect(response.status.calledWith(httpStatusCode.CREATED)).to.be.true;
+    });
+  });
+
+  describe('when the function throws an error', () => {
+    const response = {};
+    const request = {};
+
+    before(() => {
+      request.body = { name: 'Biscoitim' };
+
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(productsService, 'create').throws(new Error('Internal server error'));
+    });
+
+    after(() => {
+      productsService.create.restore();
+    });
+
+    it('it\'s called with the status code 500', async () => {
+      try {
+        const product = await productsController.create(request, response);
+        expect(product).to.throw(new Error('Internal server error'));
+      } catch (err) {
+        expect(response.status.calledWith(httpStatusCode.INTERNAL_SERVER)).to.be.true;
+      }
+    });
+  });
+});

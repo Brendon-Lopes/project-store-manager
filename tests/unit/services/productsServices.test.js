@@ -57,3 +57,25 @@ describe('Services Layer - getById function', () => {
     });
   });
 });
+
+describe('Services Layer - create product function', () => {
+  const NAME = 'Biscoitim';
+
+  const PRODUCT_MOCK = {
+    'id': 1,
+    'name': NAME,
+  };
+
+  before(() => {
+    sinon.stub(productsModel, 'create').resolves(PRODUCT_MOCK);
+  });
+
+  after(() => {
+    productsModel.create.restore();
+  });
+
+  it('returns the product', async () => {
+    const result = await productsService.create(NAME);
+    expect(result).to.be.equal(PRODUCT_MOCK);
+  });
+});

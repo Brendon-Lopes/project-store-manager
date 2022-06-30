@@ -10,7 +10,7 @@ describe('Model Layer - Get all products from DB', () => {
     'name': "Martelo de Thor",
   }];
 
-  before(async () => {
+  before(() => {
     sinon.stub(connection, 'execute').resolves([mockedData]);
   });
 
@@ -55,5 +55,23 @@ describe('Model Layer - Get product by id from DB', () => {
       const result = await productsModel.getById(PRODUCT_ID);
       expect(result).to.deep.equal(mockedData);
     });
+  });
+});
+
+describe('Model Layer - Create new product', () => {
+  const NAME = 'Biscoitim';
+
+  before(() => {
+    const execute = [{ insertId: 1 }];
+    sinon.stub(connection, 'execute').resolves(execute);
+  });
+
+  after(() => {
+    connection.execute.restore();
+  });
+
+  it('returns an object with the insertId', async () => {
+    const response = await productsModel.create(NAME);
+    expect(response).to.have.a.property('id');
   });
 });
