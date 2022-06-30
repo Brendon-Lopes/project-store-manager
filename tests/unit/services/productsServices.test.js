@@ -39,11 +39,11 @@ describe('Services Layer - getById function', () => {
     };
 
     before(() => {
-      sinon.stub(productsModel, 'getAll').resolves(mockedData);
+      sinon.stub(productsModel, 'getById').resolves([mockedData]);
     });
 
     after(() => {
-      productsModel.getAll.restore();
+      productsModel.getById.restore();
     });
 
     it('returns an object', async () => {

@@ -1,6 +1,8 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 
+const httpStatusCode = require('../../../helpers/httpStatusCode');
+
 const productsController = require('../../../controllers/productsControllers');
 const productsService = require('../../../services/productsServices');
 
@@ -27,7 +29,7 @@ describe('Controller Layer - getAll products route', () => {
 
     it('it\'s called with the status code 200', async () => {
       await productsController.getAll(request, response);
-      expect(response.status.calledWith(200)).to.be.equal(true);
+      expect(response.status.calledWith(httpStatusCode.OK)).to.be.equal(true);
     });
 
     it('it\'s called with the correct data', async () => {
@@ -53,7 +55,7 @@ describe('Controller Layer - getAll products route', () => {
 
     it('it\'s called with the status code 404', async () => {
       await productsController.getAll(request, response);
-      expect(response.status.calledWith(404)).to.be.true;
+      expect(response.status.calledWith(httpStatusCode.NOT_FOUND)).to.be.true;
     });
 
     it('it shows the error message', async () => {
@@ -82,7 +84,7 @@ describe('Controller Layer - getAll products route', () => {
         const products = await productsController.getAll(request, response);
         expect(products).to.throw();
       } catch (error) {
-        expect(response.status.calledWith(500)).to.be.true;
+        expect(response.status.calledWith(httpStatusCode.INTERNAL_SERVER)).to.be.true;
       }
     });
   });
@@ -113,7 +115,7 @@ describe('Controller Layer - getById function', () => {
 
     it('it\'s called with the status code 200', async () => {
       await productsController.getById(request, response);
-      expect(response.status.calledWith(200)).to.be.true;
+      expect(response.status.calledWith(httpStatusCode.OK)).to.be.true;
     });
 
     it('it\'s called with the correct data', async () => {
@@ -141,7 +143,7 @@ describe('Controller Layer - getById function', () => {
 
     it('it\'s called with the status code 404', async () => {
       await productsController.getById(request, response);
-      expect(response.status.calledWith(404)).to.be.true;
+      expect(response.status.calledWith(httpStatusCode.NOT_FOUND)).to.be.true;
     });
   });
 
@@ -167,7 +169,7 @@ describe('Controller Layer - getById function', () => {
         const product = await productsController.getById(request, response);
         expect(product).to.throw(new Error('Internal server error'));
       } catch (err) {
-        expect(response.status.calledWith(500)).to.be.true;
+        expect(response.status.calledWith(httpStatusCode.INTERNAL_SERVER)).to.be.true;
       }
     });
   });
