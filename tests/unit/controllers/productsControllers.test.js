@@ -231,3 +231,91 @@ describe('Controller Layer - create product', () => {
     });
   });
 });
+
+describe('Controller Layer - update product', () => {
+  describe('when the item is updated succesfully', () => {
+    const response = {};
+    const request = {};
+
+    const PRODUCT_MOCK = {
+      'id': 1,
+      'name': 'Biscoitim',
+    };
+
+    before(() => {
+      request.params = { id: 1 };
+      request.body = { name: 'Biscoitim' };
+
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(productsService, 'updateById').resolves(PRODUCT_MOCK);
+    });
+
+    after(() => {
+      productsService.updateById.restore();
+    });
+
+    it('is called with the code 200', async () => {
+      await productsController.updateById(request, response);
+      expect(response.status.calledWith(httpStatusCode.OK)).to.be.true;
+    });
+  });
+
+  describe('when the product doesn\'t exist', () => {
+    const response = {};
+    const request = {};
+
+    before(() => {
+      request.params = { id: 1 };
+      request.body = { name: 'Biscoitim' };
+
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(productsService, 'updateById').resolves(false);
+    });
+
+    after(() => {
+      productsService.updateById.restore();
+    });
+
+    it('it\'s called with the status code 404', async () => {
+      await productsController.updateById(request, response);
+      expect(response.status.calledWith(httpStatusCode.NOT_FOUND)).to.be.true;
+    });
+
+    it('it shows the error message', async () => {
+      await productsController.updateById(request, response);
+      expect(response.json.calledWith({ message: 'Product not found' })).to.be.true;
+    });
+  });
+
+  describe('when the request fails', () => {
+    const response = {};
+    const request = {};
+
+    before(() => {
+      request.params = { id: 1 };
+      request.body = { name: 'Biscoitim' };
+
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(productsService, 'updateById').throws(new Error('Internal server error'));
+    });
+
+    after(() => {
+      productsService.updateById.restore();
+    });
+
+    it('it\'s called with the status code 500', async () => {
+      try {
+        const product = await productsController.updateById(request, response);
+        expect(product).to.throw(new Error('Internal server error'));
+      } catch (err) {
+        expect(response.status.calledWith(httpStatusCode.INTERNAL_SERVER)).to.be.true;
+      }
+    });
+  });
+});
