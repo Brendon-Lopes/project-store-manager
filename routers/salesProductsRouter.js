@@ -14,4 +14,6 @@ salesProductsRouter.post(
 
 salesProductsRouter.get('/', salesProductsController.getAll);
 
+salesProductsRouter.get('/:id', salesProductsController.getById);
+
 module.exports = salesProductsRouter;

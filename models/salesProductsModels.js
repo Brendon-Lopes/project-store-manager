@@ -7,7 +7,7 @@ const create = async (sales) => {
 
   const values = sales.map(({ productId, quantity }) => ([saleId, productId, quantity]));
 
-  const query = 'INSERT INTO StoreManager.sales_products(sale_id, product_id, quantity) VALUES ?';
+  const query = 'INSERT INTO StoreManager.sales_products(sale_id, product_id, quantity) VALUES ?;';
 
   await connection.query(query, [values]);
 
@@ -32,7 +32,22 @@ const getAll = async () => {
   return sales;
 };
 
+const getById = async (id) => {
+  const query = `
+    SELECT s.date, sp.product_id, sp.quantity
+    FROM StoreManager.sales s
+    INNER JOIN StoreManager.sales_products sp
+    ON s.id = sp.sale_id
+    WHERE sp.sale_id = ?;
+  `;
+
+  const [sale] = await connection.execute(query, [id]);
+
+  return sale;
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };

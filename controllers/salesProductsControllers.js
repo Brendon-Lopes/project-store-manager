@@ -31,7 +31,28 @@ const getAll = async (req, res) => {
   }
 };
 
+const getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const sale = await salesProductsServices.getById(id);
+
+    if (!sale) {
+      return res
+        .status(httpStatusCode.NOT_FOUND)
+        .json({ message: 'Sale not found' });
+    }
+
+    return res.status(httpStatusCode.OK).json(sale);
+  } catch (err) {
+    return res
+      .status(httpStatusCode.INTERNAL_SERVER)
+      .json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };

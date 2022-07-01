@@ -78,5 +78,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "bb070093-ee20-4844-b173-7c747298fb33",
+    "colId": "c40648a0-8963-445e-a0e5-8f2517126fdf",
+    "containerId": "9021192b-9bab-4f7c-9b77-fdc8ed09c8a0",
+    "name": "Get Sale By Id",
+    "url": "http://localhost:3000/sales/1",
+    "method": "GET",
+    "sortNum": 70000,
+    "created": "2022-07-01T18:05:13.063Z",
+    "modified": "2022-07-01T18:05:33.860Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]
