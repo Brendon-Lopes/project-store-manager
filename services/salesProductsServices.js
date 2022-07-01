@@ -9,15 +9,15 @@ const checkForProduct = async (sales) => {
 
   const products = await Promise.all(result);
 
-  const isIdValid = products.some((product) => product.length === 0);
+  const isIdInvalid = products.some((product) => product.length === 0);
 
-  return isIdValid;
+  return isIdInvalid;
 };
 
 const create = async (sales) => {
-  const invalidId = await checkForProduct(sales);
+  const isIdInvalid = await checkForProduct(sales);
 
-  if (invalidId) return false;
+  if (isIdInvalid) return false;
 
   const result = await salesProductsModels.create(sales);
 
@@ -25,5 +25,6 @@ const create = async (sales) => {
 };
 
 module.exports = {
+  checkForProduct,
   create,
 };

@@ -13,7 +13,9 @@ const create = async (req, res) => {
 
     return res.status(httpStatusCode.CREATED).json(result);
   } catch (err) {
-    console.log(err);
+    return res
+      .status(httpStatusCode.INTERNAL_SERVER)
+      .json({ message: 'Internal server error' });
   }
 };
 

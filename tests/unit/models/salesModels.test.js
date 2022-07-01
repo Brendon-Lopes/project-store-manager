@@ -5,8 +5,9 @@ const connection = require('../../../helpers/connection');
 const salesModel = require('../../../models/salesModels');
 
 describe('Model Layer - create new sale', () => {
+  const insertId = 1;
   before(() => {
-    const execute = [{ insertId: 1 }];
+    const execute = [{ insertId }];
     sinon.stub(connection, 'execute').resolves(execute);
   });
 
@@ -16,6 +17,6 @@ describe('Model Layer - create new sale', () => {
 
   it('returns the created sale ID', async () => {
     const response = await salesModel.create();
-    expect(response).to.have.a.property('id');
+    expect(response).to.be.equal(insertId);
   });
 });
