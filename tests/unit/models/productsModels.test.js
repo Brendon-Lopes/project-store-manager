@@ -75,3 +75,11 @@ describe('Model Layer - Create new product', () => {
     expect(response).to.have.a.property('id');
   });
 });
+
+// describe('Model Layer - edit a product by id', () => {
+//   const PRODUCT_ID = 1;
+
+//   before(() => {
+//     sinon.stub(connection, 'execute').resolves(execute);
+//   });
+// });

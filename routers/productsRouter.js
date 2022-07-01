@@ -16,4 +16,11 @@ productsRouter.post(
 
 productsRouter.get('/:id', productsController.getById);
 
+productsRouter.put(
+  '/:id',
+  middleware.productNameValidation,
+  middleware.productNameLengthValidation,
+  productsController.updateById,
+);
+
 module.exports = productsRouter;

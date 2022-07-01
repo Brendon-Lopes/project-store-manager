@@ -92,5 +92,24 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "131da01b-cee5-4c1c-991d-c4a77501b548",
+    "colId": "c40648a0-8963-445e-a0e5-8f2517126fdf",
+    "containerId": "c389799c-7e7a-4e87-8d82-ea96c9ebd3b2",
+    "name": "Update Product",
+    "url": "http://localhost:3000/products/1",
+    "method": "PUT",
+    "sortNum": 80000,
+    "created": "2022-07-01T19:45:41.183Z",
+    "modified": "2022-07-01T20:01:49.816Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\": \"Traje do miranha\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]
