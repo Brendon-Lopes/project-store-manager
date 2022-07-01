@@ -48,8 +48,21 @@ const getById = async (id) => {
   return sale;
 };
 
+const deleteById = async (id) => {
+  const query = `
+    DELETE StoreManager.sales, StoreManager.sales_products
+    FROM StoreManager.sales
+    INNER JOIN StoreManager.sales_products
+    ON StoreManager.sales.id = StoreManager.sales_products.sale_id
+    WHERE StoreManager.sales.id = 1;
+  `;
+
+  await connection.execute(query, [id]);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  deleteById,
 };
