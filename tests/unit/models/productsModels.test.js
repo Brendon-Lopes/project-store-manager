@@ -76,10 +76,20 @@ describe('Model Layer - Create new product', () => {
   });
 });
 
-// describe('Model Layer - edit a product by id', () => {
-//   const PRODUCT_ID = 1;
+describe('Model Layer - edit a product by id', () => {
+  const PRODUCT_ID = 1;
+  const NEW_NAME = 'Martelo de Capitão América';
 
-//   before(() => {
-//     sinon.stub(connection, 'execute').resolves(execute);
-//   });
-// });
+  before(() => {
+    sinon.stub(connection, 'execute').resolves();
+  });
+
+  after(() => {
+    connection.execute.restore();
+  });
+
+  it('returns the edited product', async () => {
+    const result = await productsModel.updateById(PRODUCT_ID, NEW_NAME);
+    expect(result).to.deep.equal({ id: PRODUCT_ID, name: NEW_NAME });
+  });
+});
