@@ -79,3 +79,47 @@ describe('Services Layer - create product function', () => {
     expect(result).to.be.equal(PRODUCT_MOCK);
   });
 });
+
+describe('Services Layer - update product by id function', () => {
+  describe('When the id does not exist', () => {
+    const PRODUCT_ID = 1;
+    const NEW_NAME = 'Mjolnir';
+
+    before(() => {
+      sinon.stub(productsService, 'getById').resolves(false);
+      sinon.stub(productsModel, 'updateById').resolves();
+      sinon.stub(productsService, 'updateById').resolves(false);
+    });
+
+    after(() => {
+      productsService.getById.restore();
+      productsModel.updateById.restore();
+      productsService.updateById.restore();
+    });
+
+    it('returns false', async () => {
+      const result = await productsService.updateById(PRODUCT_ID, NEW_NAME);
+      expect(result).to.be.false;
+    });
+  });
+
+  describe('When the id does exit', () => {
+    const PRODUCT_ID = 1;
+    const NEW_NAME = 'Mjolnir';
+
+    before(() => {
+      sinon.stub(productsService, 'getById').resolves(true);
+      sinon.stub(productsModel, 'updateById').resolves({ id: PRODUCT_ID, name: NEW_NAME });
+    });
+
+    after(() => {
+      productsService.getById.restore();
+      productsModel.updateById.restore();
+    });
+
+    it('returns the product', async () => {
+      const result = await productsService.updateById(PRODUCT_ID, NEW_NAME);
+      expect(result).to.deep.equal({ id: PRODUCT_ID, name: NEW_NAME });
+    });
+  });
+});
