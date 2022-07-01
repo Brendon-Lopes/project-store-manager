@@ -24,7 +24,8 @@ const getAll = async () => {
     SELECT sp.sale_id, s.date, sp.product_id, sp.quantity
     FROM StoreManager.sales s
     INNER JOIN StoreManager.sales_products sp
-    ON s.id = sp.sale_id;
+    ON s.id = sp.sale_id
+    ORDER BY s.id, sp.product_id;
   `;
 
   const [sales] = await connection.execute(query);
@@ -38,7 +39,8 @@ const getById = async (id) => {
     FROM StoreManager.sales s
     INNER JOIN StoreManager.sales_products sp
     ON s.id = sp.sale_id
-    WHERE sp.sale_id = ?;
+    WHERE sp.sale_id = ?
+    ORDER BY s.id, sp.product_id;
   `;
 
   const [sale] = await connection.execute(query, [id]);
