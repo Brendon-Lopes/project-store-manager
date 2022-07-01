@@ -22,8 +22,19 @@ const create = async (name) => {
   return result;
 };
 
+const updateById = async (id, name) => {
+  const findProduct = await getById(id);
+
+  if (!findProduct) return false;
+
+  const result = await productsModel.updateById(id, name);
+
+  return result;
+};
+
 module.exports = {
   getAll,
   getById,
   create,
+  updateById,
 };
