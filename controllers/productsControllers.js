@@ -1,6 +1,8 @@
 const productsService = require('../services/productsServices');
 const httpStatusCode = require('../helpers/httpStatusCode');
 
+const INTERNAL_SERVER_MESSAGE = 'Internal server error';
+
 const getAll = async (req, res) => {
   try {
     const result = await productsService.getAll();
@@ -15,7 +17,7 @@ const getAll = async (req, res) => {
   } catch (err) {
     return res
       .status(httpStatusCode.INTERNAL_SERVER)
-      .json({ message: 'Internal server error' });
+      .json({ message: INTERNAL_SERVER_MESSAGE });
   }
 };
 
@@ -35,7 +37,7 @@ const getById = async (req, res) => {
   } catch (err) {
     return res
       .status(httpStatusCode.INTERNAL_SERVER)
-      .json({ message: 'Internal server error' });
+      .json({ message: INTERNAL_SERVER_MESSAGE });
   }
 };
 
@@ -49,7 +51,7 @@ const create = async (req, res) => {
   } catch (err) {
     return res
       .status(httpStatusCode.INTERNAL_SERVER)
-      .json({ message: 'Internal server error' });
+      .json({ message: INTERNAL_SERVER_MESSAGE });
   }
 };
 
@@ -70,7 +72,27 @@ const updateById = async (req, res) => {
   } catch (err) {
     return res
       .status(httpStatusCode.INTERNAL_SERVER)
-      .json({ message: 'Internal server error' });
+      .json({ message: INTERNAL_SERVER_MESSAGE });
+  }
+};
+
+const deleteById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await productsService.deleteById(id);
+
+    if (!result) {
+      return res
+        .status(httpStatusCode.NOT_FOUND)
+        .json({ message: 'Product not found' });
+    }
+
+    return res.status(httpStatusCode.NO_CONTENT).json(result);
+  } catch (err) {
+    return res
+      .status(httpStatusCode.INTERNAL_SERVER)
+      .json({ message: INTERNAL_SERVER_MESSAGE });
   }
 };
 
@@ -79,4 +101,5 @@ module.exports = {
   getById,
   create,
   updateById,
+  deleteById,
 };
