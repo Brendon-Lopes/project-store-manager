@@ -6,7 +6,7 @@ const httpStatusCode = require('../../../helpers/httpStatusCode');
 const salesProductsServices = require('../../../services/salesProductsServices');
 const salesProductsControllers = require('../../../controllers/salesProductsControllers');
 
-describe('Controller Layer - sales products controller', () => {
+describe('Controller Layer - creating a sale', () => {
   describe('when it returns correctly', () => {
     const request = {};
     const response = {};
@@ -82,6 +82,146 @@ describe('Controller Layer - sales products controller', () => {
       try {
         const sales = await salesProductsControllers.create(request, response);
         expect(sales).to.throw();
+      } catch (err) {
+        expect(response.status.calledWith(httpStatusCode.INTERNAL_SERVER)).to.be.true;
+      }
+    });
+  });
+});
+
+describe('Controller Layer - listing all sales', () => {
+  describe('when the function works correctly', () => {
+    const request = {};
+    const response = {};
+
+    const MOCKED_SERVICES_RETURN = [
+      {
+        "saleId": 1,
+        "date": "2021-09-09T04:54:29.000Z",
+        "productId": 1,
+        "quantity": 2
+      },
+    ];
+
+
+    before(() => {
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(salesProductsServices, 'getAll').resolves(MOCKED_SERVICES_RETURN);
+    });
+
+    after(() => {
+      salesProductsServices.getAll.restore();
+    });
+
+    it('it\'s called with the status code 200', async () => {
+      await salesProductsControllers.getAll(request, response);
+      expect(response.status.calledWith(httpStatusCode.OK)).to.be.true;
+    });
+  });
+
+  describe('when the function throws an error', () => {
+    const request = {};
+    const response = {};
+
+    before(() => {
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(salesProductsServices, 'getAll').throws();
+    });
+
+    after(() => {
+      salesProductsServices.getAll.restore();
+    });
+
+    it('it\'s called with the status code 500', async () => {
+      try {
+        const result = await salesProductsControllers.getAll(request, response);
+        expect(result).to.throw();
+      } catch (err) {
+        expect(response.status.calledWith(httpStatusCode.INTERNAL_SERVER)).to.be.true;
+      }
+    });
+  });
+});
+
+describe('Controller Layer - listing sale by id', () => {
+  describe('when the id is valid', () => {
+    const request = {};
+    const response = {};
+
+    const MOCKED_SERVICES_RETURN = [
+      {
+        "date": "2021-09-09T04:54:29.000Z",
+        "productId": 1,
+        "quantity": 2
+      },
+    ];
+
+
+    before(() => {
+      request.params = { id: 1 };
+
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(salesProductsServices, 'getById').resolves(MOCKED_SERVICES_RETURN);
+    });
+
+    after(() => {
+      salesProductsServices.getById.restore();
+    });
+
+    it('it\'s called with the status code 200', async () => {
+      await salesProductsControllers.getById(request, response);
+      expect(response.status.calledWith(httpStatusCode.OK)).to.be.true;
+    });
+  });
+
+  describe('when the id is not valid', () => {
+    const request = {};
+    const response = {};
+
+    before(() => {
+      request.params = { id: 2 };
+
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(salesProductsServices, 'getById').resolves(false);
+    });
+
+    after(() => {
+      salesProductsServices.getById.restore();
+    });
+
+    it('it\'s called with the status code 404', async () => {
+      await salesProductsControllers.getById(request, response);
+      expect(response.status.calledWith(httpStatusCode.NOT_FOUND)).to.be.true;
+    });
+  });
+
+  describe('when the function throws an error', async () => {
+    const request = {};
+    const response = {};
+
+    before(() => {
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(salesProductsServices, 'getById').throws();
+    });
+
+    after(() => {
+      salesProductsServices.getById.restore();
+    });
+
+    it('it\'s called with the status code 500', async () => {
+      try {
+        const result = await salesProductsControllers.getById(request, response);
+        expect(result).to.throw();
       } catch (err) {
         expect(response.status.calledWith(httpStatusCode.INTERNAL_SERVER)).to.be.true;
       }

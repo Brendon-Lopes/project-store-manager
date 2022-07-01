@@ -51,3 +51,53 @@ describe('Model Layer - create new sales_products', () => {
     expect(result).to.deep.equal(MOCKED_RETURN);
   });
 });
+
+describe('Model Layer - list all sales', () => {
+  const MOCKED_RETURN = [
+    {
+      "sale_id": 1,
+      "date": "2021-09-09T04:54:29.000Z",
+      "product_id": 1,
+      "quantity": 2
+    },
+  ];
+
+  before(() => {
+    sinon.stub(connection, 'execute').resolves([MOCKED_RETURN]);
+  });
+
+  after(() => {
+    connection.execute.restore();
+  });
+
+  it('returns the correct data', async () => {
+    const result = await salesProductsModel.getAll();
+    expect(result).to.deep.equal(MOCKED_RETURN);
+  });
+});
+
+describe('Model Layer - list sale by id', () => {
+  const SALE_ID = 1;
+
+  const MOCKED_RETURN = [
+    {
+      "sale_id": 1,
+      "date": "2021-09-09T04:54:29.000Z",
+      "product_id": 1,
+      "quantity": 2
+    },
+  ];
+
+  before(() => {
+    sinon.stub(connection, 'execute').resolves([MOCKED_RETURN]);
+  });
+
+  after(() => {
+    connection.execute.restore();
+  });
+
+  it('returns the correct data', async () => {
+    const result = await salesProductsModel.getById(SALE_ID);
+    expect(result).to.deep.equal(MOCKED_RETURN);
+  });
+});
