@@ -1,5 +1,6 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
+const connection = require('../../../helpers/connection');
 
 const salesProductsServices = require('../../../services/salesProductsServices');
 const salesProductsModels = require('../../../models/salesProductsModels');
@@ -33,11 +34,13 @@ describe('Service Layer - create new sale service', () => {
   before(() => {
     sinon.stub(salesProductsServices, 'checkForProduct').resolves(false);
     sinon.stub(salesProductsModels, 'create').resolves(MOCKED_RETURN);
+    sinon.stub(connection, 'execute').resolves([MOCKED_RETURN]);
   });
 
   after(() => {
     salesProductsServices.checkForProduct.restore();
     salesProductsModels.create.restore();
+    connection.execute.restore();
   });
 
   it('returns an object', async () => {
