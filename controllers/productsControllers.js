@@ -53,8 +53,30 @@ const create = async (req, res) => {
   }
 };
 
+const updateById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name } = req.body;
+
+    const result = await productsService.updateById(id, name);
+
+    if (!result) {
+      return res
+        .status(httpStatusCode.NOT_FOUND)
+        .json({ message: 'Product not found' });
+    }
+
+    return res.status(httpStatusCode.OK).json(result);
+  } catch (err) {
+    return res
+      .status(httpStatusCode.INTERNAL_SERVER)
+      .json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   getAll,
   getById,
   create,
+  updateById,
 };
