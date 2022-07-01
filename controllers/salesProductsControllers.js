@@ -7,6 +7,10 @@ const create = async (req, res) => {
 
     const result = await salesProductsServices.create(sales);
 
+    if (!result) {
+      return res.status(httpStatusCode.NOT_FOUND).json({ message: 'Product not found' });
+    }
+
     return res.status(httpStatusCode.CREATED).json(result);
   } catch (err) {
     console.log(err);
