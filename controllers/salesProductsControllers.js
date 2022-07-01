@@ -19,6 +19,19 @@ const create = async (req, res) => {
   }
 };
 
+const getAll = async (req, res) => {
+  try {
+    const sales = await salesProductsServices.getAll();
+
+    return res.status(httpStatusCode.OK).json(sales);
+  } catch (err) {
+    return res
+      .status(httpStatusCode.INTERNAL_SERVER)
+      .json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   create,
+  getAll,
 };

@@ -24,7 +24,21 @@ const create = async (sales) => {
   return result;
 };
 
+const getAll = async () => {
+  const sales = await salesProductsModels.getAll();
+
+  const result = sales.map(({ sale_id: saleId, date, product_id: productId, quantity }) => ({
+    saleId,
+    date,
+    productId,
+    quantity,
+  }));
+
+  return result;
+};
+
 module.exports = {
   checkForProduct,
   create,
+  getAll,
 };

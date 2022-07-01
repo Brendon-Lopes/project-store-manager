@@ -64,7 +64,7 @@ describe('Controller Layer - getAll products route', () => {
     });
   });
 
-  describe('when the function throws', () => {
+  describe('when the function throws an error', () => {
     const response = {};
     const request = {};
 

@@ -64,5 +64,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "97a13e4f-e917-4584-96c9-265cb7ec26f8",
+    "colId": "c40648a0-8963-445e-a0e5-8f2517126fdf",
+    "containerId": "9021192b-9bab-4f7c-9b77-fdc8ed09c8a0",
+    "name": "Get All Sales",
+    "url": "http://localhost:3000/sales",
+    "method": "GET",
+    "sortNum": 60000,
+    "created": "2022-07-01T17:37:36.604Z",
+    "modified": "2022-07-01T17:37:44.385Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

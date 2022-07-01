@@ -12,4 +12,6 @@ salesProductsRouter.post(
   salesProductsController.create,
 );
 
+salesProductsRouter.get('/', salesProductsController.getAll);
+
 module.exports = salesProductsRouter;
