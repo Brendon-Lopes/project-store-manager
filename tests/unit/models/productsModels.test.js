@@ -93,3 +93,20 @@ describe('Model Layer - edit a product by id', () => {
     expect(result).to.deep.equal({ id: PRODUCT_ID, name: NEW_NAME });
   });
 });
+
+describe('Model Layer - delete a product by id', () => {
+  const PRODUCT_ID = 1;
+
+  before(() => {
+    sinon.stub(connection, 'execute').resolves();
+  });
+
+  after(() => {
+    connection.execute.restore();
+  });
+
+  it('the function runs the query', async () => {
+    await productsModel.deleteById(PRODUCT_ID);
+    expect(connection.execute.calledOnce).to.be.true;
+  });
+});
