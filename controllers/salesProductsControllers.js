@@ -51,8 +51,29 @@ const getById = async (req, res) => {
   }
 };
 
+const deleteById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const sale = await salesProductsServices.deleteById(id);
+
+    if (!sale) {
+      return res
+        .status(httpStatusCode.NOT_FOUND)
+        .json({ message: 'Sale not found' });
+    }
+
+    return res.status(httpStatusCode.NO_CONTENT).send();
+  } catch (err) {
+    return res
+      .status(httpStatusCode.INTERNAL_SERVER)
+      .json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  deleteById,
 };

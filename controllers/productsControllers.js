@@ -88,7 +88,7 @@ const deleteById = async (req, res) => {
         .json({ message: 'Product not found' });
     }
 
-    return res.status(httpStatusCode.NO_CONTENT).json(result);
+    return res.status(httpStatusCode.NO_CONTENT).send();
   } catch (err) {
     return res
       .status(httpStatusCode.INTERNAL_SERVER)
