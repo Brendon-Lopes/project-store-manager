@@ -125,5 +125,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "338d1cfe-3331-408f-9a2b-019ca872ae6b",
+    "colId": "c40648a0-8963-445e-a0e5-8f2517126fdf",
+    "containerId": "9021192b-9bab-4f7c-9b77-fdc8ed09c8a0",
+    "name": "Delete Sale",
+    "url": "http://localhost:3000/sales/1",
+    "method": "DELETE",
+    "sortNum": 100000,
+    "created": "2022-07-02T00:03:08.718Z",
+    "modified": "2022-07-02T00:03:39.261Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]
