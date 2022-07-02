@@ -1,4 +1,5 @@
 const salesProductsModels = require('../models/salesProductsModels');
+const salesModels = require('../models/salesModels');
 const productsModels = require('../models/productsModels');
 
 const checkForProduct = async (sales) => {
@@ -51,9 +52,20 @@ const getById = async (id) => {
   return result;
 };
 
+const deleteById = async (id) => {
+  const findSale = await salesModels.findById(id);
+
+  if (findSale.length === 0) return false;
+
+  await salesProductsModels.deleteById(id);
+
+  return true;
+};
+
 module.exports = {
   checkForProduct,
   create,
   getAll,
   getById,
+  deleteById,
 };
