@@ -4,6 +4,7 @@ const connection = require('../../../helpers/connection');
 
 const salesProductsServices = require('../../../services/salesProductsServices');
 const salesProductsModels = require('../../../models/salesProductsModels');
+const productsModels = require('../../../models/productsModels');
 const salesModels = require('../../../models/salesModels');
 
 describe('Service Layer - create new sale service', () => {
@@ -181,5 +182,61 @@ describe('Service Layer - delete sale by id', () => {
       expect(result).to.be.true;
     });
   });
+});
 
+describe('Service Layer - update by id', () => {
+  const ID = 1;
+
+  const SALES_MOCK = [
+    {
+      "productId": 1,
+      "quantity": 10
+    },
+    {
+      "productId": 2,
+      "quantity": 50
+    }
+  ];
+
+  afterEach(() => {
+    sinon.restore();
+  });
+
+  describe('when sale does not exist', () => {
+    before(() => {
+      sinon.stub(salesModels, 'findById').resolves([]);
+    });
+
+    it('returns an object', async () => {
+      const result = await salesProductsServices.updateById(ID, SALES_MOCK);
+      expect(result).to.be.a('object');
+    });
+  });
+
+  describe('if any product id is invalid', () => {
+    before(() => {
+      sinon.stub(salesModels, 'findById').resolves([{ id: 1 }]);
+      sinon.stub(salesProductsServices, 'checkForProduct').resolves(true);
+      sinon.stub(productsModels, 'getById').resolves([]);
+    });
+
+    it('returns an object', async () => {
+      const result = await salesProductsServices.updateById(ID, SALES_MOCK);
+      expect(result).to.be.a('object');
+    });
+  });
+
+  describe('when sale exists', () => {
+    before(() => {
+      sinon.stub(salesModels, 'findById').resolves([{ id: 1 }]);
+      sinon.stub(salesProductsServices, 'checkForProduct').resolves(true);
+      sinon.stub(productsModels, 'getById').resolves([{ id: 1 }]);
+      sinon.stub(salesProductsModels, 'updateById').resolves();
+    });
+
+    it('returns an object', async () => {
+      const result = await salesProductsServices.updateById(ID, SALES_MOCK);
+      expect(result).to.be.a('object');
+    });
+  });
 });

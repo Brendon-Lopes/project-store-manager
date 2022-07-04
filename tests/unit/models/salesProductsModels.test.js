@@ -116,3 +116,21 @@ describe('Model Layer - delete by id', () => {
     expect(connection.execute.calledOnce).to.be.true;
   });
 });
+
+describe('Model Layer - update by id', () => {
+  const ID = 1;
+  const QUANTITY = 2;
+
+  before(() => {
+    sinon.stub(connection, 'execute').resolves();
+  });
+
+  after(() => {
+    connection.execute.restore();
+  });
+
+  it('executes the query', async () => {
+    await salesProductsModel.updateById(ID, ID, QUANTITY);
+    expect(connection.execute.calledOnce).to.be.true;
+  });
+});

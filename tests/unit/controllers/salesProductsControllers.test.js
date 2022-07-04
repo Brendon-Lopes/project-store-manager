@@ -274,3 +274,85 @@ describe('Controller Layer - deleting sale by id', () => {
     });
   });
 });
+
+describe('Controller Layer - updating sale by id', () => {
+  afterEach(() => {
+    sinon.restore();
+  });
+
+  describe('when the id is valid', () => {
+    const request = {};
+    const response = {};
+
+    const MOCKED_RETURN = {
+      "saleId": 1,
+      "itemsUpdated": [
+        {
+          "productId": 1,
+          "quantity": 10
+        },
+        {
+          "productId": 2,
+          "quantity": 50
+        }
+      ]
+    };
+
+    before(() => {
+      request.params = { id: 1 };
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(salesProductsServices, 'updateById').resolves(MOCKED_RETURN);
+    });
+
+    it('is called with the status code 200', async () => {
+      await salesProductsControllers.updateById(request, response);
+      expect(response.status.calledWith(httpStatusCode.OK)).to.be.true;
+    });
+  });
+
+  describe('when the id is not valid', () => {
+    const request = {};
+    const response = {};
+
+    const MOCKED_RETURN = {
+      error: true,
+    };
+
+    before(() => {
+      request.params = { id: 1 };
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(salesProductsServices, 'updateById').resolves(MOCKED_RETURN);
+    });
+
+    it('is called with the status code 404', async () => {
+      await salesProductsControllers.updateById(request, response);
+      expect(response.status.calledWith(httpStatusCode.NOT_FOUND)).to.be.true;
+    });
+  });
+
+  describe('when it throws an error', () => {
+    const request = {};
+    const response = {};
+
+    before(() => {
+      request.params = { id: 1 };
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(salesProductsServices, 'updateById').rejects();
+    });
+
+    it('is called with the status code 500', async () => {
+      try {
+        const result = await salesProductsControllers.updateById(request, response);
+        expect(result).to.throw();
+      } catch (err) {
+        expect(response.status.calledWith(httpStatusCode.INTERNAL_SERVER)).to.be.true;
+      }
+    });
+  });
+});
