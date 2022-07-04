@@ -53,13 +53,37 @@ const getById = async (id) => {
 };
 
 const deleteById = async (id) => {
-  const findSale = await salesModels.findById(id);
+  const sale = await salesModels.findById(id);
 
-  if (findSale.length === 0) return false;
+  if (sale.length === 0) return false;
 
   await salesProductsModels.deleteById(id);
 
   return true;
+};
+
+const updateById = async (saleId, sales) => {
+  const sale = await salesModels.findById(saleId);
+
+  if (sale.length === 0) return { error: true, message: 'Sale not found' };
+
+  const invalidId = await checkForProduct(sales);
+
+  if (invalidId) return { error: true, message: 'Product not found' };
+
+  const update = sales.reduce((acc, { productId, quantity }) => {
+    const updatedSale = salesProductsModels.updateById(saleId, productId, quantity);
+    return [...acc, updatedSale];
+  }, []);
+
+  await Promise.all(update);
+
+  const updatedItems = {
+    saleId,
+    itemsUpdated: sales,
+  };
+
+  return updatedItems;
 };
 
 module.exports = {
@@ -68,4 +92,5 @@ module.exports = {
   getAll,
   getById,
   deleteById,
+  updateById,
 };

@@ -55,12 +55,12 @@
     "method": "POST",
     "sortNum": 50000,
     "created": "2022-06-30T22:39:33.159Z",
-    "modified": "2022-07-01T02:36:24.854Z",
+    "modified": "2022-07-04T21:33:36.935Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "[\n    {\n      \"productId\": 3,\n      \"quantity\": 1\n    },\n    {\n      \"productId\": 2,\n      \"quantity\": 5\n    }\n]",
+      "raw": "[\n    {\n      \"productId\": 1,\n      \"quantity\": 1\n    }\n]",
       "form": []
     },
     "tests": []
@@ -138,6 +138,25 @@
     "modified": "2022-07-02T00:03:39.261Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "54c6718d-5537-434a-bce2-2ea92cddccd7",
+    "colId": "c40648a0-8963-445e-a0e5-8f2517126fdf",
+    "containerId": "9021192b-9bab-4f7c-9b77-fdc8ed09c8a0",
+    "name": "Update Sale",
+    "url": "http://localhost:3000/sales/1",
+    "method": "PUT",
+    "sortNum": 110000,
+    "created": "2022-07-04T19:41:34.219Z",
+    "modified": "2022-07-04T21:34:19.412Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "  [\r\n    {\r\n      \"productId\": 999,\r\n      \"quantity\":10\r\n    },\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\":50\r\n    }\r\n  ]",
+      "form": []
+    },
     "tests": []
   }
 ]
