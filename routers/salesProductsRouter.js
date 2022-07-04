@@ -18,4 +18,11 @@ salesProductsRouter.get('/:id', salesProductsController.getById);
 
 salesProductsRouter.delete('/:id', salesProductsController.deleteById);
 
+salesProductsRouter.put(
+  '/:id',
+  middleware.salesRequiredFields,
+  middleware.salesMinQuantityValidation,
+  salesProductsController.updateById,
+);
+
 module.exports = salesProductsRouter;
