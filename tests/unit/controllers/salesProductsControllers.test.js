@@ -228,3 +228,49 @@ describe('Controller Layer - listing sale by id', () => {
     });
   });
 });
+
+describe('Controller Layer - deleting sale by id', () => {
+  describe('when the id is valid', () => {
+    const request = {};
+    const response = {};
+
+    before(() => {
+      request.params = { id: 1 };
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(salesProductsServices, 'deleteById').resolves(false);
+    });
+
+    after(() => {
+      sinon.restore();
+    });
+
+    it('is called with the status code 404', async () => {
+      await salesProductsControllers.deleteById(request, response);
+      expect(response.status.calledWith(httpStatusCode.NOT_FOUND)).to.be.true;
+    });
+  });
+
+  describe('when the id is not valid', () => {
+    const request = {};
+    const response = {};
+
+    before(() => {
+      request.params = { id: 1 };
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+
+      sinon.stub(salesProductsServices, 'deleteById').resolves(true);
+    });
+
+    after(() => {
+      sinon.restore();
+    });
+
+    it('is called with the status code 204', async () => {
+      await salesProductsControllers.deleteById(request, response);
+      expect(response.status.calledWith(httpStatusCode.NO_CONTENT)).to.be.true;
+    });
+  });
+});
