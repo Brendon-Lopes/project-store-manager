@@ -1,20 +1,12 @@
 const httpStatusCode = require('../helpers/httpStatusCode');
-const { validateRequired } = require('../schemas/salesSchema');
+const { validateProducts } = require('../schemas/salesSchema');
 
 const salesRequiredFields = (req, res, next) => {
   const sales = req.body;
-  let message = '';
 
-  const invalid = sales.some((sale) => {
-    const { error } = validateRequired.validate(sale);
-    if (error) {
-      message = error.message;
-      return true;
-    }
-    return false;
-  });
+  const { error } = validateProducts.validate(sales);
 
-  if (invalid) return res.status(httpStatusCode.BAD_REQUEST).json({ message });
+  if (error) return res.status(httpStatusCode.BAD_REQUEST).json({ message: error.message });
 
   next();
 };
