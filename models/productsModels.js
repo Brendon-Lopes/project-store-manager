@@ -50,10 +50,19 @@ const deleteById = async (id) => {
   );
 };
 
+const searchByName = async (name) => {
+  const query = 'SELECT * FROM StoreManager.products WHERE name = "Martelo de Thor";';
+
+  const [result] = await connection.execute(query, [name]);
+
+  return result;
+};
+
 module.exports = {
   getAll,
   getById,
   create,
   updateById,
   deleteById,
+  searchByName,
 };
