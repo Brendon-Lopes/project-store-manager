@@ -110,3 +110,30 @@ describe('Model Layer - delete a product by id', () => {
     expect(connection.execute.calledOnce).to.be.true;
   });
 });
+
+describe('Model Layer - search product by name', () => {
+  const PRODUCT_NAME = 'Martelo de Thor';
+
+  const MOCKED_PRODUCT = {
+    id: 1,
+    name: PRODUCT_NAME,
+  }
+
+  before(() => {
+    sinon.stub(connection, 'execute').resolves([MOCKED_PRODUCT]);
+  });
+
+  after(() => {
+    sinon.restore();
+  });
+
+  it('the function runs the query', async () => {
+    await productsModel.searchByName(PRODUCT_NAME);
+    expect(connection.execute.calledOnce).to.be.true;
+  });
+
+  it('the function returns the product', async () => {
+    const result = await productsModel.searchByName(PRODUCT_NAME);
+    expect(result).to.deep.equal(MOCKED_PRODUCT);
+  });
+});
