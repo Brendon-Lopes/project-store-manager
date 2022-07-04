@@ -4,6 +4,7 @@ const connection = require('../../../helpers/connection');
 
 const salesProductsServices = require('../../../services/salesProductsServices');
 const salesProductsModels = require('../../../models/salesProductsModels');
+const salesModels = require('../../../models/salesModels');
 
 describe('Service Layer - create new sale service', () => {
   const MOCKED_SALES = [
@@ -139,4 +140,46 @@ describe('Service Layer - list sale by id', () => {
       expect(result).to.deep.equal(MOCKED_RETURN);
     });
   });
+});
+
+describe('Service Layer - delete sale by id', () => {
+  describe('when the sale is not found', () => {
+    const ID = 1;
+
+    before(() => {
+      sinon.stub(salesModels, 'findById').resolves([]);
+    });
+
+    after(() => {
+      salesModels.findById.restore();
+    });
+
+    it('returns false', async () => {
+      const result = await salesProductsServices.deleteById(ID);
+      expect(result).to.be.false;
+    });
+  });
+
+  describe('when the sale is found', () => {
+    const ID = 1;
+
+    const MOCKED_SALES = {
+      id: ID,
+    }
+
+    before(() => {
+      sinon.stub(salesModels, 'findById').resolves([MOCKED_SALES]);
+      sinon.stub(salesProductsModels, 'deleteById').resolves();
+    });
+
+    after(() => {
+      salesModels.findById.restore();
+    });
+
+    it('deletes the sale and returns true', async () => {
+      const result = await salesProductsServices.deleteById(ID);
+      expect(result).to.be.true;
+    });
+  });
+
 });
