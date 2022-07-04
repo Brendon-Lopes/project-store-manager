@@ -101,3 +101,18 @@ describe('Model Layer - list sale by id', () => {
     expect(result).to.deep.equal(MOCKED_RETURN);
   });
 });
+
+describe('Model Layer - delete by id', () => {
+  before(() => {
+    sinon.stub(connection, 'execute').resolves();
+  });
+
+  after(() => {
+    connection.execute.restore();
+  });
+
+  it('executes the query', async () => {
+    await salesProductsModel.deleteById(1);
+    expect(connection.execute.calledOnce).to.be.true;
+  });
+});
