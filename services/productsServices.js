@@ -42,10 +42,22 @@ const deleteById = async (id) => {
   return true;
 };
 
+const searchByName = async (name) => {
+  if (name.length === 0) {
+    const result = await productsModel.getAll();
+    return result;
+  }
+
+  const result = await productsModel.searchByName(name);
+
+  return result;
+};
+
 module.exports = {
   getAll,
   getById,
   create,
   updateById,
   deleteById,
+  searchByName,
 };
