@@ -96,10 +96,25 @@ const deleteById = async (req, res) => {
   }
 };
 
+const searchByName = async (req, res) => {
+  try {
+    const { q: name } = req.query;
+
+    const result = await productsService.searchByName(name);
+
+    return res.status(httpStatusCode.OK).json(result);
+  } catch (err) {
+    return res
+      .status(httpStatusCode.INTERNAL_SERVER)
+      .json({ message: INTERNAL_SERVER_MESSAGE });
+  }
+};
+
 module.exports = {
   getAll,
   getById,
   create,
   updateById,
   deleteById,
+  searchByName,
 };
