@@ -194,6 +194,6 @@ describe('Services Layer - search product by name', () => {
       sinon.stub(productsModel, 'searchByName').resolves(PRODUCTS_MOCK[0]);
       const result = await productsService.searchByName('Mart');
       expect(result).to.deep.equal(PRODUCTS_MOCK[0]);
-    })
+    });
   });
 });
