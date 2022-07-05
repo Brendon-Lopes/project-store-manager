@@ -399,3 +399,38 @@ describe('Controller Layer - delete product', () => {
     });
   });
 });
+
+describe('Controller Layer - search by name', () => {
+  afterEach(() => {
+    sinon.restore();
+  });
+
+  describe('when there is no error', () => {
+    const request = {};
+    const response = {};
+
+    const PRODUCTS_MOCK = [{
+      id: 1,
+      name: 'Martelo de Thor',
+    }];
+
+    describe('the response', () => {
+      before(() => {
+        request.query = { q: 'Martelo' };
+        response.status = sinon.stub().returns(response);
+        response.json = sinon.stub().returns();
+        sinon.stub(productsService, 'searchByName').resolves(PRODUCTS_MOCK);
+      });
+
+      it('is called with status code 200', async () => {
+        await productsController.searchByName(request, response);
+        expect(response.status.calledWith(httpStatusCode.OK)).to.be.true;
+      });
+
+      it('returns the result', async () => {
+        await productsController.searchByName(request, response);
+        expect(response.json.calledWith(PRODUCTS_MOCK)).to.be.true;
+      });
+    });
+  });
+});
