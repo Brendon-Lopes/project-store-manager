@@ -170,3 +170,30 @@ describe('Services Layer - delete product by id function', () => {
     });
   });
 });
+
+describe('Services Layer - search product by name', () => {
+  afterEach(() => {
+    sinon.restore();
+  });
+
+  const PRODUCTS_MOCK = [
+    { id: 1, name: 'Martelo de Thor' },
+    { id: 2, name: 'Traje de Encolhimento' },
+  ];
+
+  describe('when no name is provided', () => {
+    it('returns all the products', async () => {
+      sinon.stub(productsModel, 'getAll').resolves(PRODUCTS_MOCK);
+      const result = await productsService.searchByName('');
+      expect(result).to.deep.equal(PRODUCTS_MOCK);
+    });
+  });
+
+  describe('when the name is provided', () => {
+    it('it any matching names, return the matching products', async () => {
+      sinon.stub(productsModel, 'searchByName').resolves(PRODUCTS_MOCK[0]);
+      const result = await productsService.searchByName('Mart');
+      expect(result).to.deep.equal(PRODUCTS_MOCK[0]);
+    })
+  });
+});
