@@ -58,3 +58,9 @@ Um exemplo já está disponível no arquivo `.env.example`, bastando renomear pa
 - DELETE `/sales/:id` para deletar uma venda, buscando por id.
 - PUT `/sales/:id` para atualizar uma venda, buscando por id. (Deve receber no body um array de objetos contendo `productId` e `quantity`).
 - GET `/products/search?q=query` (substituindo `query` pelo termo que deve ser pesquisado) para pesquisar produtos pelo nome.
+
+<hr></hr>
+
+## Considerações finais
+
+Foi um projeto em que já deu para consolidar a organização da arquitetura MSC, e também começar consolidar a prática de testes unitários para cada camada dessa arquitetura. Também deu para praticar ainda mais as queries de MySQL, antes de começar a utilizar um ORM, como sequelize. Aqui é possível ver um [projeto que eu fiz utilizando Sequelize](https://github.com/Brendon-Lopes/project-blogs-api).
