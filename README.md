@@ -1,66 +1,69 @@
-# Projeto Store Manager
+Select Language: English, [Português](./README-PT.md).
 
-Um projeto feito para treinar criação de API's, utilizando arquitetura MSC, utilizando a biblioteca MySQL2. Seguindo os princípios de uma API RESTful.
+# Project Store Manager
 
-A API é um sistema CRUD de gerenciamento de vendas no formato dropshipping.
+A project made to practice the creation of RESTful APIs, using the MSC (Model, Service, Controller) architecture. Using the mysql2 library.
 
-Os testes unitários feitos utilizando as bibliotecas Mocha, Chai e Sinon tem 100% de cobertura nas camadas MSC (Models, Services e Controllers).
+The API is a CRUD of sales management in the dropshipping format.
 
-<hr></hr>
-
-## 🛠 Habilidades
-Node.js, MySQL, Arquitetura MSC, JOI, Mocha, Chai, Sinon...
+The unit tests were made using the Mocha, Chai and Sinon libraries, and have 100% coverage over the MSC layers.
 
 <hr></hr>
 
-## Variáveis de Ambiente
+## 🛠 Tools / Skills
 
-Para rodar esse projeto, você vai precisar adicionar variáveis de ambiente no seu .env
-
-Um exemplo já está disponível no arquivo `.env.example`, bastando renomear para `.env` e escolher o valor das variáveis.
+Node.js, MySQL, MSC Architecture, JOI, Mocha, Chai, Sinon...
 
 <hr></hr>
 
-## Utilização
+## Environment Variables
 
-- Para clonar o projeto: `git clone git@github.com:Brendon-Lopes/project-store-manager.git`.
+To run this project you'll need to add environment variables in your `.env` file.
 
-- Já existe um arquivo `docker-compose.yml` (Disponibilizado pela Trybe). Bastando usar o comando `docker-compose up` para rodar o MySQL e o Node pelo docker.
-
-- Os arquivos para criação das tabelas e de seed se encontram nos arquivos `migration.sql` e `seed.sql` respectivamente. E podem ser utilizados em alguma ferramenta de gerenciamento de bancos de dados (como DBeaver ou MySQL Workbench).
-
-- `npm start` para rodar a aplicação usando o node.
-
-- `npm test` para testar a aplicação.
-
-- Utilizar alguma Plataforma de API para utilizar os endpoints. Exemplos: Postman, Insomnia, Thunder Client...
+An example is available in the `.env.example` file. You only need to rename it to `.env` and change the variables values if necessary.
 
 <hr></hr>
 
-## Diagramas
+## Usage
 
-![Diagrama de relacionamentos das tabelas](diagramas-store-manager.png)
+- To clone this project: `git clone git@github.com:Brendon-Lopes/project-store-manager.git`.
 
-<i> Imagem disponibilizada pela Trybe </i>
+- There is a `docker-compose.yml` file (Made available by trybe). You'll only need to run the command `docker-compose up` to run MySQL and Node with docker.
+
+- The files to create the tables and seed them can be found in `migration.sql` and `seed.sql` respectively. And can be used in a database manager (e.g., DBeaver, MySQL Workbench...).
+
+- `npm start` to run the application using node.
+
+- `npm test` to test the application.
+
+- You can use a platform to request from the API's endpoints (e.g., Postman, Insomnia, Thunder Client...).
+
+<hr></hr>
+
+## Diagrams
+
+![Tables relationships diagram](diagramas-store-manager.png)
+
+<i> Image made available by Trybe </i>
 
 <hr></hr>
 
 ## Endpoints
 
-- GET `/products` para listar todos os produtos.
-- GET `/products/:id` para listar um produto pelo id.
-- POST `/products/:id` para cadastrar um novo produto. (Deve receber no body a propriedade `name`).
-- POST `/sales` para cadastrar vendas. (Deve receber um array de objetos, contendo as propriedades `productId` e `quantity`).
-- GET `/sales` para listar todas as vendas.
-- GET `/sales/:id` para listar vendas por id.
-- PUT `/products/:id` para atualizar o nome de um produto por id. (Deve receber no body a propriedade `name`).
-- DELETE `/products/:id` para deletar um produto, buscando por id.
-- DELETE `/sales/:id` para deletar uma venda, buscando por id.
-- PUT `/sales/:id` para atualizar uma venda, buscando por id. (Deve receber no body um array de objetos contendo `productId` e `quantity`).
-- GET `/products/search?q=query` (substituindo `query` pelo termo que deve ser pesquisado) para pesquisar produtos pelo nome.
+- GET `/products` to list all products.
+- GET `/products/:id` to list a product by id.
+- POST `/products/:id` to register a new product. (Must receive the property `name` inside the body).
+- POST `/sales` to register new sales. (Must receive an array of objects, containing the properties `productId` and `quantity`).
+- GET `/sales` to list all sales.
+- GET `/sales/:id` to list sales by id.
+- PUT `/products/:id` to update a product's name by id. (Must receive the property `name`).
+- DELETE `/products/:id` to delete a product that contains the id passed by URL parameter.
+- DELETE `/sales/:id` to delete a sale by id.
+- PUT `/sales/:id` to update a sale by id. (Must receive an array of objects containing `productId` and `quantity` inside the body);
+- GET `/products/search?q=query` (replacing `query` for the term you want to search) to search for products by name.
 
 <hr></hr>
 
-## Considerações finais
+## Final considerations
 
-Foi um projeto em que já deu para consolidar a organização da arquitetura MSC, e também começar consolidar a prática de testes unitários para cada camada dessa arquitetura. Também deu para praticar ainda mais as queries de MySQL, antes de começar a utilizar um ORM, como sequelize. Aqui é possível ver um [projeto que eu fiz utilizando Sequelize](https://github.com/Brendon-Lopes/project-blogs-api).
+It was a project to consolidate the organization of the MSC architecture, and consolidate the practice of unit tests for each layer of the MSC as well. I could also practice even more my MySQL queries before using an ORM like Sequelize. Here you can see a [project that I made using Sequelize](https://github.com/Brendon-Lopes/project-blogs-api).
