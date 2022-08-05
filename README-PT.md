@@ -1,4 +1,4 @@
-Select Language: [English](https://github.com/Brendon-Lopes/project-store-manager), Português.
+# Select Language: [English](https://github.com/Brendon-Lopes/project-store-manager), Português.
 
 # Projeto Store Manager
 
